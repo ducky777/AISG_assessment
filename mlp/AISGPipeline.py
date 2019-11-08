@@ -1,9 +1,11 @@
 import numpy as np
+from sklearn.ensemble import ExtraTreesClassifier
+
 
 class MLPipeline:
-    def __init__(self, df, training_split):
-        self.training_split = training_split
-        self.training_idx = int(round(training_split*len(df)))
+    def __init__(self, df, valid_split):
+        self.valid_split = valid_split
+        self.valid_idx = int(round((1-valid_split)*len(df)))
 
         self.df = df.copy()
         self.weather_main_numerical, self.weather_main_categories = \
@@ -15,8 +17,8 @@ class MLPipeline:
         self.x = self._create_x()
         self.weather_categories_idx = self.weather_main_categories + self.weather_desc_categories
         self.weather_categories_idx = self.weather_categories_idx + ['Temperature', 'Rain_1h', 'Snow_1h'
-                                                                    , 'Clouds_all', 'Hour', 'Month'
-                                                                    , 'Day Of Week', 'Day']
+                                                                     , 'Clouds_all', 'Hour', 'Month'
+                                                                     , 'Day Of Week', 'Day']
         self._create_y()
         return
 
@@ -103,8 +105,17 @@ class MLPipeline:
             rx[:, i] = (x[:, i] - xmean) / xstd
         return rx, x_mean, x_std
 
+    def fit(self, algorithm):
+        return
+
     def reverse_minmax(self):
         return
 
     def create_lookbacks(self):
         return
+
+    def feature_importance(self):
+        clf = ExtraTreesClassifier(n_estimators=5).fit(self.x, self.y)
+        f_importance = clf.feature_importances_
+        importance_idx = np.argsort(f_importance)[::-1]
+        return f_importance, importance_idx

@@ -1,19 +1,16 @@
-import numpy as np
-from sklearn.ensemble import ExtraTreesClassifier
 from sklearn.tree import DecisionTreeRegressor
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.kernel_ridge import KernelRidge
 from sklearn.linear_model import SGDRegressor
+from sklearn.ensemble import RandomForestRegressor
+
 
 class MLAlgorithms:
     def __init__(self):
         return
 
-    def feature_importance(self):
-        clf = ExtraTreesClassifier(n_estimators=5).fit(self.x, self.y)
-        f_importance = clf.feature_importances_
-        importance_idx = np.argsort(f_importance)[::-1]
-        return f_importance, importance_idx
+    def random_forest(self):
+        return
 
     def decision_tree_regressor(self, x, y, criterion, max_depth, min_samples_split
                                 , min_samples_leaf, random_state):
@@ -33,7 +30,7 @@ class MLAlgorithms:
         return
 
     def k_nearest_neighbour(self, x, y, n_neighbors, p):
-        model = KNeighborsRegressor(n_neighbors=n_neighbors, p=p)
+        model = KNeighborsRegressor(n_neighbors=n_neighbors, p=p, metric='minkowski')
         print('Fitting k-NN...')
         model.fit(x, y)
         print('Fitting k-NN done!')
