@@ -10,7 +10,7 @@ Required packages are in requirements.txt
 
 ### Usage
 
-```
+```python
 from mlp.AISGPipeline import MLPipeline
 data = MLPipeline()
 ```
