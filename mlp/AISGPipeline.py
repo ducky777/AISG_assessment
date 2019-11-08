@@ -1,5 +1,4 @@
 import numpy as np
-from sklearn.ensemble import ExtraTreesClassifier
 
 class MLPipeline:
     def __init__(self, df, training_split):
@@ -109,15 +108,3 @@ class MLPipeline:
 
     def create_lookbacks(self):
         return
-
-
-class Algorithms:
-    def __init__(self):
-        return
-
-    def feature_importance(self):
-        clf = ExtraTreesClassifier(n_estimators=5).fit(self.x, self.y)
-        f_importance = clf.feature_importances_
-        importance_idx = np.argsort(f_importance)[::-1]
-        return f_importance, importance_idx
-
