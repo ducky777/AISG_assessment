@@ -1,13 +1,15 @@
 from mlp.AISGPipeline import MLPipeline
 import pandas as pd
+from importlib import reload
+import os
+os.environ['x_shape_1'] = '-1'
 
-df = pd.read_csv('https://aisgaiap.blob.core.windows.net/aiap5-assessment-data/traffic_data.csv')
-valid_split = 0.7
-model_pipeline = MLPipeline(df, valid_split)
+if __name__ == '__main__':
+    df = pd.read_csv('https://aisgaiap.blob.core.windows.net/aiap5-assessment-data/traffic_data.csv')
+    model_pipeline = MLPipeline(df)
 
-from _mlconfig import final_model, kwargs
-model_pipeline.add_model(final_model)
-
-metrics = model_pipeline.fit(**kwargs)
-
+    import _mlconfig
+    reload(_mlconfig)
+    model_pipeline.add_model(_mlconfig.final_model)
+    metrics = model_pipeline.fit(**_mlconfig.fit_kwargs)
 

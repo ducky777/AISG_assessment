@@ -1,9 +1,16 @@
 <component name="ProjectDictionaryState">
   <dictionary name="SW">
     <words>
+      <w>dataframe</w>
+      <w>endtime</w>
       <w>keras</w>
       <w>minmax</w>
+      <w>mlconfig</w>
+      <w>onehot</w>
       <w>pred</w>
+      <w>preprocess</w>
+      <w>starttime</w>
+      <w>timetaken</w>
       <w>xmax</w>
       <w>xmean</w>
       <w>xmin</w>

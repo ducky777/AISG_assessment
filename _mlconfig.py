@@ -1,9 +1,11 @@
 
-''' Example for using Randomforest
+# Example for using RandomForest
 from sklearn.ensemble import RandomForestRegressor
 
-model = RandomForestRegressor(50, 'mse')
-'''
+
+def create_model():
+    model = RandomForestRegressor(50, 'mse')
+    return model
 
 # ===================
 # USAGE INSTRUCTIONS
@@ -13,31 +15,70 @@ model = RandomForestRegressor(50, 'mse')
 
 
 # Example for using a simple keras dense model
-from keras.layers import Dense, LeakyReLU
-from keras.models import Sequential
-import numpy as np
 
+# from keras.layers import Dense, LeakyReLU
+# from keras.models import Sequential
+# import os
+#
+# def create_model():
+#     xshape1 = int(os.environ['x_shape_1'])
+#     print('Input shape: ', xshape1)
+#     model = Sequential()
+#     model.add(Dense(128, input_shape=(xshape1,)))
+#     model.add(LeakyReLU())
+#     model.add(Dense(256))
+#     model.add(LeakyReLU())
+#     model.add(Dense(1, activation='linear'))
+#     print('Model created')
+#     model.compile(optimizer='adam', loss='mse')
+#     print('Model compiled')
+#     return model
 
-def create_model():
-    xshape = int(np.loadtxt('save.txt'))
-    model = Sequential()
-    model.add(Dense(128, input_shape=(xshape, )))
-    model.add(LeakyReLU())
-    model.add(Dense(256))
-    model.add(LeakyReLU())
-    model.add(Dense(1, activation='linear'))
-    model.compile(optimizer='adam', loss='mse')
-    return model
-
-
+# ========================================
 # Define scale type of inputs and outputs
+# ========================================
 # Scale types available are:
     # 1. minmax - normalize values between 0-1
     # 2. normalize - normalize values using mean
     # 3. standardize - standardize using mean and standard deviation
+
 x_scale_type = 'minmax'
 y_scale_type = 'minmax'
+metric = 'mse'
+save_model_filename_prefix = ''  # Leave it blank if you do not wish to save your model using this pipeline
+validation_split = 0.3  # Ratio of data to be used as validation set
+#fit_kwargs = {'verbose': 1, 'epochs': 2, 'shuffle': False, 'batch_size': 128}  # kwargs for your model's fit function
+fit_kwargs = {}
+preprocess_fn = None
 
-# Set model and keyword arguments
-kwargs = {'verbose': 1, 'epochs': 2, 'shuffle': False, 'batch_size': 128}
-final_model = create_model()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#========================================================
+#===================DO NOT TOUCH!========================
+#========================================================
+import os
+xshape = int(os.environ['x_shape_1'])
+if xshape > 0:
+    final_model = create_model()
