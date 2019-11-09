@@ -52,7 +52,7 @@ to return the model.
 
 The following shows an example for using a Keras model.
 
-####READ FIRST - FOR MODELS THAT REQUIRES INPUT DIM
+#### READ FIRST - FOR MODELS THAT REQUIRES INPUT DIM
 For models that require the shape of the input for model creation,\
 i.e. keras models, use **int(os.environ['x_shape_1'])** to fetch\
 the input size.
