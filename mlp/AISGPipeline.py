@@ -1,7 +1,6 @@
 import numpy as np
 import pandas as pd
 from sklearn.ensemble import ExtraTreesClassifier
-from sklearn.metrics import r2_score
 import time
 import os
 
@@ -27,6 +26,9 @@ class MLPipeline:
         self.y = None
         self.x_valid = None
         self.y_valid = None
+        self.remove_categories = []
+
+        self.get_weather_categories(self.df)
 
         # Preprocess data
         if preprocess_func is None:
@@ -34,7 +36,7 @@ class MLPipeline:
         else:
             self.df, self.x, self.y = preprocess_func(df)
 
-        from _mlconfig import x_scale_type, y_scale_type, validation_split
+        from mlp._mlconfig import x_scale_type, y_scale_type, validation_split
 
         self.valid_split = validation_split
         self.x_scale_type = x_scale_type
@@ -42,22 +44,53 @@ class MLPipeline:
         # Split data into train and valid
         self.split_data()
 
+        print('Removed Categories: ', self.remove_categories)
+
+        for i in self.remove_categories:
+            self.weather_categories_idx.remove(i)
+            print('Removed ', i, sep='')
+
         self.model = None
         return
 
-    def preprocess(self, df):
-        df = self.feature_engineering(df)
+    def feature_engineering(self, df):
+
+        # Convert date_time into DayOfWeek, Day, Month, Hour
+        df.date_time = pd.to_datetime(df.date_time)
+        hour = df.date_time.dt.hour
+        dayofweek = df.date_time.dt.dayofweek
+        day = df.date_time.dt.day
+        month = df.date_time.dt.month
+
+        df['Month'] = month.copy()
+        df['Hour'] = hour.copy()
+        df['DayOfWeek'] = dayofweek.copy()
+        df['Day'] = day.copy()
+
+        # Dropping holiday and date_time
+        df = df.drop('holiday', axis=1)
+        df = df.drop('date_time', axis=1)
+        return df
+
+    def get_weather_categories(self, df):
         self.weather_main_numerical, self.weather_main_categories = \
             self._convert_categorical(df.weather_main)
+
         self.weather_main_onehot = self._convert_onehot(df.weather_main)
+
         self.weather_desc_numerical, self.weather_desc_categories = \
             self._convert_categorical(df.weather_description)
+
         self.weather_desc_onehot = self._convert_onehot(df.weather_description)
 
         self.weather_categories_idx = self.weather_main_categories + self.weather_desc_categories
         self.weather_categories_idx = self.weather_categories_idx + ['Temperature', 'Rain_1h', 'Snow_1h'
                                                                      , 'Clouds_all', 'Hour', 'Month'
                                                                      , 'Day Of Week', 'Day']
+        return
+
+    def preprocess(self, df):
+        df = self.feature_engineering(df)
 
         x = self._create_x(df)
         y = self._create_y(df)
@@ -92,6 +125,7 @@ class MLPipeline:
                 x_idx.append(i)
             else:
                 removed_feature = self.weather_categories_idx[i]
+                self.remove_categories.append(removed_feature)
                 print('Removed ', removed_feature, sep='')
         rx = x[:, x_idx]
         return rx, x_idx
@@ -128,24 +162,6 @@ class MLPipeline:
     def add_model(self, model):
         self.model = model
         return
-
-    def feature_engineering(self, df):
-        # Convert date_time into DayOfWeek, Day, Month, Hour
-        df.date_time = pd.to_datetime(df.date_time)
-        hour = df.date_time.dt.hour
-        dayofweek = df.date_time.dt.dayofweek
-        day = df.date_time.dt.day
-        month = df.date_time.dt.month
-
-        df['Month'] = month.copy()
-        df['Hour'] = hour.copy()
-        df['DayOfWeek'] = dayofweek.copy()
-        df['Day'] = day.copy()
-
-        # Dropping holiday and date_time
-        df = df.drop('holiday', axis=1)
-        df = df.drop('date_time', axis=1)
-        return df
 
     def _convert_categorical(self, x):
         # =======================================
@@ -250,7 +266,7 @@ class MLPipeline:
         print('Time Start: ', time.ctime(), sep='')
         self.model.fit(self.x_train, self.y_train, **kwargs)
         pr = self.model.predict(self.x)
-        from _mlconfig import metric
+        from mlp._mlconfig import metric
         if metric == 'mse':
             metrics = self.eva_mse(pr)
         elif metric == 'mae':

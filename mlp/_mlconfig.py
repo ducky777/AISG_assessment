@@ -79,6 +79,10 @@ preprocess_fn = None
 #===================DO NOT TOUCH!========================
 #========================================================
 import os
-xshape = int(os.environ['x_shape_1'])
+try:
+    xshape = int(os.environ['x_shape_1'])
+except KeyError:
+    xshape = -1
+    pass
 if xshape > 0:
     final_model = create_model()
