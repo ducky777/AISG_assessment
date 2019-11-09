@@ -36,7 +36,7 @@ class MLPipeline:
         else:
             self.df, self.x, self.y = preprocess_func(df)
 
-        from mlp._mlconfig import x_scale_type, y_scale_type, validation_split
+        from _mlconfig import x_scale_type, y_scale_type, validation_split
 
         self.valid_split = validation_split
         self.x_scale_type = x_scale_type
@@ -266,7 +266,7 @@ class MLPipeline:
         print('Time Start: ', time.ctime(), sep='')
         self.model.fit(self.x_train, self.y_train, **kwargs)
         pr = self.model.predict(self.x)
-        from mlp._mlconfig import metric
+        from _mlconfig import metric
         if metric == 'mse':
             metrics = self.eva_mse(pr)
         elif metric == 'mae':
