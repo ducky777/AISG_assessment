@@ -5,6 +5,7 @@
       <w>minmax</w>
       <w>numerics</w>
       <w>onehot</w>
+      <w>pred</w>
       <w>regressor</w>
       <w>xmax</w>
       <w>xmean</w>

@@ -1,13 +1,14 @@
 import numpy as np
+import pandas as pd
 from sklearn.ensemble import ExtraTreesClassifier
-
+from sklearn.metrics import r2_score
 
 class MLPipeline:
-    def __init__(self, df, valid_split):
+    def __init__(self, df, valid_split, model):
         self.valid_split = valid_split
         self.valid_idx = int(round((1-valid_split)*len(df)))
 
-        self.df = df.copy()
+        self.df = self.feature_engineering(df)
         self.weather_main_numerical, self.weather_main_categories = \
             self._convert_categorical(self.df.weather_main)
         self.weather_main_onehot = self._convert_onehot(self.df.weather_main)
@@ -20,7 +21,25 @@ class MLPipeline:
                                                                      , 'Clouds_all', 'Hour', 'Month'
                                                                      , 'Day Of Week', 'Day']
         self._create_y()
+        self.x_train = self.x[:self.valid_idx]
+        self.y_train = self.y[:self.valid_idx]
+        self.x_valid = self.x[self.valid_idx:]
+        self.y_valid = self.y[self.valid_idx:]
+        self.model = model
         return
+
+    def feature_engineering(self, df):
+        df.date_time = pd.to_datetime(df.date_time)
+        hour = df.date_time.dt.hour
+        dayofweek = df.date_time.dt.dayofweek
+        day = df.date_time.dt.day
+        month = df.date_time.dt.month
+
+        df['Month'] = month.copy()
+        df['Hour'] = hour.copy()
+        df['DayOfWeek'] = dayofweek.copy()
+        df['Day'] = day.copy()
+        return df
 
     def _convert_categorical(self, x):
         # =======================================
@@ -105,8 +124,26 @@ class MLPipeline:
             rx[:, i] = (x[:, i] - xmean) / xstd
         return rx, x_mean, x_std
 
-    def fit(self, algorithm):
-        return
+    def mse(self, y_true, y_pred):
+        return np.mean(np.square(y_pred-y_true))
+
+    def mae(self, y_true, y_pred):
+        return np.mean(np.abs(y_pred-y_true))
+
+    def r2(self, y_true, y_pred):
+        return r2_score(y_true, y_pred)
+
+    def fit(self):
+        self.model.fit(self.x_train, self.y_train)
+        pr = self.model.predict(self.x, self.y)
+        mse_valid = np.mean(np.square(self.y_valid-pr[self.valid_idx:]))
+        mse_train = np.mean(np.square(self.y_train-pr[:self.valid_idx]))
+        mse_total = np.mean(np.square(self.y-pr))
+        metrics = [mse_total, mse_train, mse_valid]
+        print('MSE Valid Set: ', mse_valid, sep='')
+        print('MSE Train Set: ', mse_train, sep='')
+        print('MSE Total: ', mse_total, sep='')
+        return metrics
 
     def reverse_minmax(self):
         return

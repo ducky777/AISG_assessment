@@ -2,7 +2,6 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.kernel_ridge import KernelRidge
 from sklearn.linear_model import SGDRegressor
-from sklearn.ensemble import RandomForestRegressor
 
 
 class MLAlgorithms:
