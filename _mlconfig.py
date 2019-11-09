@@ -9,7 +9,7 @@ model = RandomForestRegressor(50, 'mse')
 # USAGE INSTRUCTIONS
 # ===================
 # 1. Create whatever model you want in this page
-# 2. Make sure to name your model variable as model
+# 2. Make sure to name your model variable as final_model
 
 
 # Example for using a simple keras dense model
@@ -28,4 +28,4 @@ def create_model():
     return model
 
 
-model = create_model()
+final_model = create_model()
