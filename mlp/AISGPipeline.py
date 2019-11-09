@@ -41,6 +41,7 @@ class MLPipeline:
         self.valid_split = validation_split
         self.x_scale_type = x_scale_type
         self.y_scale_type = y_scale_type
+        
         # Split data into train and valid
         self.split_data()
 

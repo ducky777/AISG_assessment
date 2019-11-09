@@ -10,7 +10,7 @@ Required packages are in requirements.txt
 
 ## Usage
 
-1. Open the file _mlconfig.py
+1. Open the file _mlconfig.py in the __mlp folder__
 2. Choose your x variables scaling function
 3. Import/Write/Define your desired model here
 4. Set the kwargs for your model's fit function if any
