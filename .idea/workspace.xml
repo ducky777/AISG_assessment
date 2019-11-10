@@ -2,24 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c178ff86-392a-4df6-a453-d9a12133d5ee" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/sengwee_ngui_5093I/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sengwee_ngui_5093I/eda.ipynb" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sengwee_ngui_5093I/mlp/.idea/dictionaries/SW.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sengwee_ngui_5093I/mlp/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sengwee_ngui_5093I/mlp/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sengwee_ngui_5093I/mlp/.idea/mlp.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sengwee_ngui_5093I/mlp/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sengwee_ngui_5093I/mlp/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sengwee_ngui_5093I/mlp/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sengwee_ngui_5093I/mlp/AISGPipeline.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sengwee_ngui_5093I/mlp/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sengwee_ngui_5093I/mlp/_mlconfig.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sengwee_ngui_5093I/mlp/main.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sengwee_ngui_5093I/requirements.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/sengwee_ngui_5093I/run.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mlp/AISGPipeline.py" beforeDir="false" afterPath="$PROJECT_DIR$/mlp/AISGPipeline.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sengwee_ngui_5093I.zip" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.ipynb_checkpoints/eda-checkpoint.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/.ipynb_checkpoints/eda-checkpoint.ipynb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eda.ipynb" beforeDir="false" afterPath="$PROJECT_DIR$/eda.ipynb" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
