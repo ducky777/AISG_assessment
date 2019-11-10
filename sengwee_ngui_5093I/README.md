@@ -17,7 +17,7 @@ Required packages are in requirements.txt
 5. Assign your model to the variable final_model
 6. Type in your model save file prefix in save_model_filename_prefix if\
 you want the pipeline to save your model. Otherwise leave it blank.
-7. Run main.py
+7. Run main.py or run.sh
 
 ## Custom Preprocess Function
 You can write your own preprocess function in\
