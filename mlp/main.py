@@ -10,6 +10,7 @@ if __name__ == '__main__':
     print('Starting Pipeline...')
 
     df = pd.read_csv('https://aisgaiap.blob.core.windows.net/aiap5-assessment-data/traffic_data.csv')
+    # df = pd.read_csv('traffic_data.csv')
     model_pipeline = MLPipeline(df)
 
     reload(_mlconfig)

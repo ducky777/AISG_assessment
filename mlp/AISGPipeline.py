@@ -36,7 +36,10 @@ class MLPipeline:
         else:
             self.df, self.x, self.y = preprocess_func(df)
 
-        from _mlconfig import x_scale_type, y_scale_type, validation_split
+        try:
+            from _mlconfig import x_scale_type, y_scale_type, validation_split
+        except ImportError:
+            from mlp._mlconfig import x_scale_type, y_scale_type, validation_split
 
         self.valid_split = validation_split
         self.x_scale_type = x_scale_type
