@@ -52,7 +52,7 @@ class MLPipeline:
 
         for i in self.remove_categories:
             self.weather_categories_idx.remove(i)
-            print('Removed ', i, sep='')
+            print(i, ' removed from categorical list', sep='')
 
         self.model = None
         return
