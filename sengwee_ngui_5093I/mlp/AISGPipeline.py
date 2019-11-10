@@ -137,6 +137,7 @@ class MLPipeline:
     def x_scale(self, x_scale_type):
         if x_scale_type == 'minmax':
             self.x_train, self.x_min, self.x_range = self.minmax_scaling(self.x_train)
+            np.savetxt('xrange.txt', self.x_range)
             self.x, dummy1, dummy2 = self.minmax_scaling(self.x, self.x_min, self.x_range)
         elif x_scale_type == 'normalize':
             self.x_train, self.x_mean, self.x_range = self.normalize(self.x_train)
@@ -283,9 +284,6 @@ class MLPipeline:
         print('Time Taken: ', str(round(timetaken, 3)), ' seconds', sep='')
         return metrics
 
-    def stream(self, x):
-        return
-
     def eva_mse(self, pr):
         mse_valid = np.mean(np.square(self.y_valid - pr[self.valid_idx:]))
         mse_train = np.mean(np.square(self.y_train - pr[:self.valid_idx]))
@@ -310,9 +308,8 @@ class MLPipeline:
         rpr = (pr*self.y_range) + self.y_min
         return rpr
 
-    def reverse_minmax(self, x):
-        rx = x
-        return rx
+    def reverse_minmax(self):
+        return
 
     def create_lookbacks(self):
         return
