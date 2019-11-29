@@ -1,3 +1,3 @@
 #!/bin/sh
-cd "$(dirname "$0")"
+cd "${0%/*}"
 python mlp/main.py
